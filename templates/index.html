@@ -2,22 +2,101 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>APP Gestor de Tareas11</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modelo Entrenado</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
 
-    <!DOCTYPE html>
-    <html lang="es">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Carga de Imágenes</title>
-      </head>
-      <body>
-        <h1>Cargar Imágenes</h1>
-        <form action="/procesar" method="post" enctype="multipart/form-data">
-          <input type="file" name="file" accept="image/*" required />
-          <button type="submit">Procesar</button>
-        </form>
-      </body>
-    </html>
+      .container {
+        width: 60%;
+        margin: 0 auto;
+        text-align: center;
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #333333;
+        font-size: 24px;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+
+      .upload-container {
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .upload-container input[type="file"] {
+        display: none;
+      }
+
+      .upload-btn,
+      .process-btn {
+        padding: 15px 30px;
+        font-size: 16px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .upload-btn:hover,
+      .process-btn:hover {
+        background-color: #2980b9;
+      }
+
+      img {
+        margin-top: 20px;
+        max-width: 100%;
+        border-radius: 5px;
+      }
+    </style>
   </head>
+  <body>
+    <div class="container">
+      <h1>Modelo Entrenado</h1>
+      <form
+        action="/procesar"
+        method="post"
+        enctype="multipart/form-data"
+        class="upload-container"
+      >
+        <label for="file-upload" class="upload-btn">Sube tus imágenes</label>
+        <input
+          id="file-upload"
+          type="file"
+          name="file"
+          accept="image/*"
+          multiple
+          required
+        />
+        <button type="submit" class="process-btn">Procesar Imágenes</button>
+      </form>
+      <p id="message"></p>
+      <!-- Elemento para mostrar el mensaje -->
+      {% if imagenes %}
+      <h2>Imágenes Procesadas:</h2>
+      {% for imagen in imagenes %}
+      <img src="data:image/jpeg;base64,{{ imagen }}" alt="Imagen Procesada" />
+      {% endfor %} {% endif %}
+    </div>
+
+    <!-- JavaScript para mostrar el mensaje -->
+    <script>
+      function showMessage(message) {
+        document.getElementById("message").innerText = message;
+      }
+    </script>
+  </body>
 </html>
